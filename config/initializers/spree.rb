@@ -13,7 +13,9 @@ Spree.config do |config|
   # Example:
   # Uncomment to stop tracking inventory levels in the application
   # config.track_inventory_levels = false
-  if Rails.env.production?
+
+
+  # if Rails.env.production?
     attachment_config = {
       s3_credentials: {
         access_key_id:     ENV['AWS_ACCESS_KEY_ID'],
@@ -31,12 +33,12 @@ Spree.config do |config|
       default_url:    'noimage/:style.png',
       default_style:  'product'
     }
-    Rails.application.after_initialize do
+    Rails.application.config.after_initialize do
       attachment_config.each do |key, value|
         Spree::Image.attachment_definitions[:attachment][key.to_sym] = value
       end
     end
-  end
+  # end
 end
 
 # Configure Spree Dependencies
